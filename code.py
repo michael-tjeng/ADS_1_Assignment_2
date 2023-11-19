@@ -24,17 +24,17 @@ file_names = {
 # Selected countries
 countries = ['Ethiopia', 'India', 'Brazil', 'Germany']
 
-# Function to create dataframes for selected countries
-def create_country_dataframes(file_name, countries, skip_rows=4):
+# Function to create and transpose dataframes for selected countries
+def create_and_transpose_dataframes(file_name, countries, skip_rows=4):
     df = pd.read_csv(file_name, skiprows=skip_rows)
-    # Filtering for the selected countries
-    df_selected = df[df['Country Name'].isin(countries)]
-    return df_selected
+    df_filtered = df[df['Country Name'].isin(countries)]
+    df_transposed = df_filtered.set_index('Country Name').drop(columns=['Country Code', 'Indicator Name', 'Indicator Code']).T
+    return df_transposed
 
-# Processing each dataset
-dataframes = {}
+# Processing and transposing each dataset
+transposed_dataframes = {}
 for name, file_name in file_names.items():
-    dataframes[name] = create_country_dataframes(file_name, countries)
+    transposed_dataframes[name] = create_and_transpose_dataframes(file_name, countries)
 
-# Example: Checking the first few rows of the "CO2 emissions" dataframe
-print(dataframes['CO2_emissions'].head())
+# Example: Checking the first few rows of the transposed 'CO2_emissions' dataframe
+print(transposed_dataframes['CO2_emissions'].head())
