@@ -6,7 +6,9 @@ Created on Sun Nov 19 22:13:56 2023
 @author: michaeltjeng
 """
 
+import numpy as np
 import pandas as pd
+import scipy.stats as stats
 
 # File names for the datasets
 file_names = {
@@ -37,4 +39,20 @@ for name, file_name in file_names.items():
     transposed_dataframes[name] = create_and_transpose_dataframes(file_name, countries)
 
 # Example: Checking the first few rows of the transposed 'CO2_emissions' dataframe
-print(transposed_dataframes['CO2_emissions'].head())
+print(transposed_dataframes['CO2_emissions'].head(), '\n')
+
+# Exploring statistical properties
+for name, df in transposed_dataframes.items():
+    print(f"Statistics for {name}:\n")
+    
+    # Using .describe()
+    print(df.describe(), "\n")
+
+    # Calculating Kurtosis
+    kurtosis = df.apply(lambda x: stats.kurtosis(x, fisher=True, nan_policy='omit'))  # Fisher's definition
+    print(f"Kurtosis:\n{kurtosis}\n")
+
+    # Calculating Skewness
+    skewness = df.apply(lambda x: stats.skew(x, nan_policy='omit'))
+    print(f"Skewness:\n{skewness}\n")
+
