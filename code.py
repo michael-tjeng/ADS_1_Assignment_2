@@ -92,26 +92,110 @@ plt.grid(True)
 plt.show()
 
 energy_use_df = transposed_dataframes['Energy_use']
-energy_use_df = energy_use_df.loc['1990':'2020']  # Selecting data from 1990 to 2020
-# Plotting the line graph for Energy Use
-energy_use_df.plot(kind='line', figsize=(10, 6))
-plt.title('Energy Use (1990-2020)')
+energy_use_df = transposed_dataframes['Energy_use'].loc['1990':'2020']  # Selecting data from 1990 to 2020
+selected_years = energy_use_df.index[::5]  # Selecting every 5th year for simplicity
+# Plotting the bar chart for Energy Use
+energy_use_df.loc[selected_years].plot(kind='bar', figsize=(12, 8))
+plt.title('Energy Use (Selected Years: 1990-2020)')
 plt.xlabel('Year')
 plt.ylabel('Energy Use (kg of oil equivalent per capita)')
 plt.legend(title='Country')
-plt.grid(True)
+plt.grid(True, axis='y')
 plt.show()
 
-renewable_energy_df = transposed_dataframes['Renewable_energy_consumption']
-renewable_energy_df = renewable_energy_df.loc['1990':'2020']  # Selecting data from 1990 to 2020
-# Plotting the line graph for Renewable Energy Consumption
-renewable_energy_df.plot(kind='line', figsize=(10, 6))
-plt.title('Renewable Energy Consumption (1990-2020)')
+
+renewable_energy_df = transposed_dataframes['Renewable_energy_consumption'].loc['1990':'2020']  # Selecting data from 1990 to 2020
+# Plotting the bar chart for Renewable Energy Consumption
+renewable_energy_df.loc[selected_years].plot(kind='bar', figsize=(12, 8))
+plt.title('Renewable Energy Consumption (Selected Years: 1990-2020)')
 plt.xlabel('Year')
 plt.ylabel('Renewable Energy Consumption (%)')
-# Custom positioning of the legend
-plt.legend(title='Country', bbox_to_anchor=(1, 0.85))
-plt.grid(True)
+plt.legend(title='Country', bbox_to_anchor=(1.0, 1.0))  # Adjusting legend position
+plt.grid(True, axis='y')
 plt.show()
 
+
+# Ethiopia
+ethiopia_co2 = transposed_dataframes['CO2_emissions']['Ethiopia'].loc['1990':'2020']
+ethiopia_energy_use = transposed_dataframes['Energy_use']['Ethiopia'].loc['1990':'2020']
+ethiopia_renewable_energy = transposed_dataframes['Renewable_energy_consumption']['Ethiopia'].loc['1990':'2020']
+ethiopia_urban_population = transposed_dataframes['Urban_population']['Ethiopia'].loc['1990':'2020']
+# Combining all these into a single DataFrame
+ethiopia_combined = pd.DataFrame({
+    'CO2 Emissions': ethiopia_co2,
+    'Energy Use': ethiopia_energy_use,
+    'Renewable Energy': ethiopia_renewable_energy,
+    'Urban Population': ethiopia_urban_population
+})
+# Calculating the correlation matrix for Ethiopia
+correlation_matrix_ethiopia = ethiopia_combined.corr()
+# Creating the heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix_ethiopia, annot=True, cmap='YlGnBu')
+plt.title('Correlation Heatmap for Ethiopia (1990-2020)')
+plt.show()
+
+# India
+india_co2 = transposed_dataframes['CO2_emissions']['India'].loc['1990':'2020']
+india_energy_use = transposed_dataframes['Energy_use']['India'].loc['1990':'2020']
+india_renewable_energy = transposed_dataframes['Renewable_energy_consumption']['India'].loc['1990':'2020']
+india_urban_population = transposed_dataframes['Urban_population']['India'].loc['1990':'2020']
+# Combining all these into a single DataFrame
+india_combined = pd.DataFrame({
+    'CO2 Emissions': india_co2,
+    'Energy Use': india_energy_use,
+    'Renewable Energy': india_renewable_energy,
+    'Urban Population': india_urban_population
+})
+# Calculating the correlation matrix for India
+correlation_matrix_india = india_combined.corr()
+# Creating the heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix_india, annot=True, cmap='Blues')
+plt.title('Correlation Heatmap for India (1990-2020)')
+plt.show()
+
+# Brazil
+brazil_co2 = transposed_dataframes['CO2_emissions']['Brazil'].loc['1990':'2020']
+brazil_energy_use = transposed_dataframes['Energy_use']['Brazil'].loc['1990':'2020']
+brazil_renewable_energy = transposed_dataframes['Renewable_energy_consumption']['Brazil'].loc['1990':'2020']
+brazil_urban_population = transposed_dataframes['Urban_population']['Brazil'].loc['1990':'2020']
+# Combining all these into a single DataFrame
+brazil_combined = pd.DataFrame({
+    'CO2 Emissions': brazil_co2,
+    'Energy Use': brazil_energy_use,
+    'Renewable Energy': brazil_renewable_energy,
+    'Urban Population': brazil_urban_population
+})
+# Calculating the correlation matrix for Brazil
+correlation_matrix_brazil = brazil_combined.corr()
+# Creating the heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix_brazil, annot=True, cmap='Greens')
+plt.title('Correlation Heatmap for Brazil (1990-2020)')
+plt.show()
+
+# Selecting data from 1990 to 2020 for Germany in each dataset
+germany_co2 = transposed_dataframes['CO2_emissions']['Germany'].loc['1990':'2020']
+germany_energy_use = transposed_dataframes['Energy_use']['Germany'].loc['1990':'2020']
+germany_renewable_energy = transposed_dataframes['Renewable_energy_consumption']['Germany'].loc['1990':'2020']
+germany_urban_population = transposed_dataframes['Urban_population']['Germany'].loc['1990':'2020']
+# Add any other datasets you have
+# Combining all these into a single DataFrame
+germany_combined = pd.DataFrame({
+    'CO2 Emissions': germany_co2,
+    'Energy Use': germany_energy_use,
+    'Renewable Energy': germany_renewable_energy,
+    'Urban Population': germany_urban_population
+    # Add other factors as columns
+})
+# Preview the combined DataFrame
+print(germany_combined.head())
+# Calculating the correlation matrix for Germany
+correlation_matrix_germany = germany_combined.corr()
+# Creating the heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix_germany, annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap for Germany (1990-2020)')
+plt.show()
 
