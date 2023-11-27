@@ -105,7 +105,6 @@ if __name__ == "__main__":
         datasets[name] = load_and_clean_data(path, selected_countries)
         print(f"Statistics for {name}:\n")
         calculate_statistics(datasets[name])
-        print()
     
     # Urban Population Growth (1990-2020)
     urban_pop = datasets['Urban_population'].loc['1990':'2020']
